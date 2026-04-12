@@ -19,10 +19,16 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Controller, useForm } from "react-hook-form";
+import { authClient } from '@/lib/auth-client';
+import z from 'zod';
 
 export default function SignUpPage() {
-  const onSubmit = () => {
-    console.log("Submit!!!")
+  const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
+    await authClient.signUp.email({
+      email: data.email,
+      name: data.name,
+      password: data.password
+    })
   }
   const form = useForm({
     resolver: zodResolver(signUpSchema),
