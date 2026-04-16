@@ -28,31 +28,29 @@ import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { createBlogAction } from "@/app/actions";
 
 export default function CreateRoute() {
+  // const mutation = useMutation(api.posts.createPost);
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const mutation = useMutation(api.posts.createPost);
 
   const form = useForm({
     resolver: zodResolver(postSchema),
     defaultValues: {
       content: "",
       title: "",
-      image: undefined,
     },
   });
 
   function onSubmit(values: z.infer<typeof postSchema>) {
-    toast.warning("kaishile!!!");
-    startTransition(() => {
-      const result = mutation({
-        body: values.content,
-        title: values.title,
-      });
-      toast.success("neng cheng gong ma?");
+    startTransition(async () => {
+      await createBlogAction(values);
     });
+    toast.success("made,chenggongle!");
 
-    // await createBlogAction(values);
+    router.push("/");
   }
   return (
     <div className="py-12">
