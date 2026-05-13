@@ -18,9 +18,9 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { api } from "@/convex/_generated/api";
+// import { api } from "@/convex/_generated/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "convex/react";
+// import { useMutation } from "convex/react";
 
 import { Loader2 } from "lucide-react";
 import { useTransition } from "react";
@@ -41,6 +41,7 @@ export default function CreateRoute() {
     defaultValues: {
       content: "",
       title: "",
+      image: undefined,
     },
   });
 
@@ -107,7 +108,7 @@ export default function CreateRoute() {
                 )}
               />
 
-              {/*<Controller
+              <Controller
                 name="image"
                 control={form.control}
                 render={({ field, fieldState }) => (
@@ -128,7 +129,7 @@ export default function CreateRoute() {
                     )}
                   </Field>
                 )}
-              />*/}
+              />
 
               <Button type="submit" disabled={isPending}>
                 {isPending ? (

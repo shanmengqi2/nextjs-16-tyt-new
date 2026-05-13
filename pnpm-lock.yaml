@@ -11,6 +11,9 @@ importers:
       '@convex-dev/better-auth':
         specifier: ^0.11.4
         version: 0.11.4(@standard-schema/spec@1.1.0)(better-auth@1.5.6(@opentelemetry/api@1.9.1)(next@16.2.3(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(convex@1.35.1(react@19.2.4))(hono@4.12.12)(react@19.2.4)(typescript@5.9.3)
+      '@convex-dev/presence':
+        specifier: ^0.3.0
+        version: 0.3.0(convex@1.35.1(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.72.1(react@19.2.4))
@@ -304,6 +307,20 @@ packages:
       better-auth: '>=1.5.0 <1.6.0'
       convex: ^1.25.0
       react: ^18.3.1 || ^19.0.0
+
+  '@convex-dev/presence@0.3.0':
+    resolution: {integrity: sha512-adV+ao1L77u+egobyJabNwuai/0y/VgzMbqZiy+Q49JmX6fbSaiYg6FpFVACqPaq3giOfjrN2k+5mK2jTAUG0g==}
+    peerDependencies:
+      convex: ^1.24.8
+      expo-crypto: '>=14.1.0'
+      react: ~18.3.1 || ^19.0.0
+      react-dom: ~18.3.1 || ^19.0.0
+      react-native: '>=0.79.0'
+    peerDependenciesMeta:
+      expo-crypto:
+        optional: true
+      react-native:
+        optional: true
 
   '@dotenvx/dotenvx@1.61.0':
     resolution: {integrity: sha512-utL3cpZoFzflyqUkjYbxYujI6STBTmO5LFn4bbin/NZnRWN6wQ7eErhr3/Vpa5h/jicPFC6kTa42r940mQftJQ==}
@@ -4443,6 +4460,12 @@ snapshots:
       - '@standard-schema/spec'
       - hono
       - typescript
+
+  '@convex-dev/presence@0.3.0(convex@1.35.1(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      convex: 1.35.1(react@19.2.4)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   '@dotenvx/dotenvx@1.61.0':
     dependencies:

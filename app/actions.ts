@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { redirect } from "next/navigation";
 import { getToken } from "@/lib/auth-server";
 import { updateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export async function createBlogAction(values: z.infer<typeof postSchema>) {
   try {
@@ -17,31 +18,33 @@ export async function createBlogAction(values: z.infer<typeof postSchema>) {
     }
 
     const token = await getToken();
-    // const imageUrl = await fetchMutation(
-    //   api.posts.generateImageUploadUrl,
-    //   {},
-    //   { token },
-    // );
+    const imageUrl = await fetchMutation(
+      api.posts.generateImageUploadUrl,
+      {},
+      { token },
+    );
 
-    // const uploadResult = await fetch(imageUrl, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": parsed.data.image.type,
-    //   },
-    //   body: parsed.data.image,
-    // });
+    const uploadResult = await fetch(imageUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": parsed.data.image.type,
+      },
+      body: parsed.data.image,
+    });
 
-    // if (!uploadResult.ok) {
-    //   return {
-    //     error: "Failed to upload image",
-    //   };
-    // }
+    if (!uploadResult.ok) {
+      return {
+        error: "Failed to upload image",
+      };
+    }
+    const { storageId } = await uploadResult.json();
 
     await fetchMutation(
       api.posts.createPost,
       {
         body: parsed.data.content,
         title: parsed.data.title,
+        imageStorageId: storageId,
       },
       { token },
     );
@@ -52,5 +55,6 @@ export async function createBlogAction(values: z.infer<typeof postSchema>) {
   }
 
   updateTag("blog");
+  // revalidatePath("/blog");
   return redirect("/blog");
 }

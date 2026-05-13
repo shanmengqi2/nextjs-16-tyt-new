@@ -26,6 +26,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // "use cache";
   const token = await getToken();
   return (
     <html
